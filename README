@@ -1,0 +1,13 @@
+Jay Hankins - jh@purdue.edu
+Max Molnar - molnarm@purdue.edu
+Matthew Ess - mess@purdue.edu
+
+Connect More
+
+Game on a Connect 4 style board. Players drop pieces that stack and attempt to make chains in any direction. When a chain is made, the pieces combine and form a single piece of a higher level. The final goal is to make a chain of higher level pieces. Players attempt to block their opponents chains.
+
+HTML 5 Canvas
+CSS
+Javascript
+Node.js
+Mongodb
