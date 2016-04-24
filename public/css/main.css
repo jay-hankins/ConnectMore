@@ -1,5 +1,12 @@
 canvas {
-    border: 1px solid;
-    border-radius: 3px;
-    background-color: grey;
+    border: 1px solid #835f17;
+    background-color: #ffe2a9;
+}
+
+body {
+    background-color: #ffe4ce;
+}
+
+h1, p {
+    color: #af3c3c;
 }
