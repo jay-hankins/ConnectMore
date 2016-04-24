@@ -1,20 +1,18 @@
+var canvas = document.getElementById('gameCanvas');
+var width = 600;
+var height = 600;
+var lineColor = '#835f17';
+
 function start() {
   resize();
 };
 
 function resize() {
-  scaleCanvas();
-  drawGrid();
-  scaleCanvas();
-  drawGrid();
+  canvas.width = width;
+  canvas.height = height;
   scaleCanvas();
   drawGrid();
 }
-
-var canvas = document.getElementById('gameCanvas');
-var width = canvas.width;
-var height = canvas.height;
-var lineColor = '#835f17';
 
 function drawGrid() {
   var ctx = canvas.getContext('2d');
