@@ -2,12 +2,14 @@ var canvas = document.getElementById('gameCanvas');
 var width = 600;
 var height = 600;
 var lineColor = '#835f17';
+var p1Color = '#831717';
+var p2Color = '#0e4f4f';
 
 function start() {
-  resize();
+  redraw();
 };
 
-function resize() {
+function redraw() {
   canvas.width = width;
   canvas.height = height;
   scaleCanvas();
