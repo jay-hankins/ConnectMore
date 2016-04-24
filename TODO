@@ -1,0 +1,8 @@
+# TODO
+
+- create a piece class
+	- drop them in without having them fall through
+
+- create a player variable
+	- used to determine colors
+	- i.e. p1 is the color and identifier for drawing P1's pieces, checking if they have 4 in a row
