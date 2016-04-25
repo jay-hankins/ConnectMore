@@ -1,5 +1,3 @@
-var canvas = document.getElementById('gameCanvas');
-var ctx = canvas.getContext('2d');
 var width = 600;
 var height = 700;
 var lineColor = '#835f17';
@@ -38,7 +36,7 @@ function Game() {
             return false;
         }
 
-        this.canvas = document.getElementsByTagName("canvas")[0];
+        this.canvas = document.getElementById('gameCanvas');
         this.canvas.addEventListener('click', function (e) {
             that.onclick(that.canvas, e);
         });
@@ -52,7 +50,7 @@ function Game() {
         this.won = false;
         this.rejectClick = false;
         this.move = 0;
-        this.aiHistory = [];
+        // this.aiHistory = [];
         this.initOnce();
 
         var i, j;
@@ -223,14 +221,22 @@ function Game() {
         }
     };
 
-    this.drawCircle = function (x, y, r, fill, stroke) {
+    this.drawCircle = function (x, y, fill) {
         this.context.save();
-        this.context.fillStyle = fill;
-        this.context.strokeStyle = stroke;
+        // this.context.fillStyle = fill;
+        // this.context.strokeStyle = stroke;
+        // this.context.beginPath();
+        // this.context.arc(x, y, r, 0, 2 * Math.PI, false);
+        // //this.context.stroke();
+        // this.context.fill();
+
         this.context.beginPath();
-        this.context.arc(x, y, r, 0, 2 * Math.PI, false);
-        //this.context.stroke();
+        this.context.rect(x, y, 70, 70);
+        this.context.fillStyle = fill;
         this.context.fill();
+
+        this.context.closePath();
+
         this.context.restore();
     };
     this.drawMask = function () {
@@ -240,17 +246,17 @@ function Game() {
 
         this.context.save();
         // this.context.fillStyle = "#ffe2a9";
-        this.context.lineWidth = 2;
-        this.context.strokeStyle = "#835f17";
+        this.context.lineWidth = 30;
+        this.context.strokeStyle = "#D9B56E";
         this.context.beginPath();
         for (var x = 0; x <= height; x += 100) {
-            this.context.moveTo(x, 0);
-            this.context.lineTo(x, width);
+            this.context.moveTo(x+5, 0);
+            this.context.lineTo(x+5, width);
         }
   
         for (var y = 0; y <= width; y += 100) {
-            this.context.moveTo(0, y);
-            this.context.lineTo(height, y);
+            this.context.moveTo(0, y+5);
+            this.context.lineTo(height+10, y+5);
         }
         this.context.stroke();
         this.context.closePath();
@@ -269,7 +275,7 @@ function Game() {
                 } else if (this.map[y][x] <= -1) {
                     fg_color = "#9975AB";
                 }
-                this.drawCircle(75 * x + 100, 75 * y + 50, 25, fg_color, "black");
+                this.drawCircle(60 * x + 100, 74 * y + 50, fg_color);
             }
         }
     };
@@ -332,7 +338,7 @@ function Game() {
                     that.ai(-1);
                 });
                 if (valid === 1) { // give user retry if action is invalid
-                    this.rejectClick = true;
+                    // this.rejectClick = true;
                 }
                 break; //because there will be no 2 points that are clicked at a time
             }
