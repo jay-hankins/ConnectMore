@@ -1,4 +1,5 @@
 var canvas = document.getElementById('gameCanvas');
+var ctx = canvas.getContext('2d');
 var width = 600;
 var height = 600;
 var lineColor = '#835f17';
@@ -7,6 +8,7 @@ var p2 = '#0e4f4f';
 
 function start() {
   redraw();
+  drawTileInLocation(10,10);
 };
 
 function redraw() {
@@ -20,6 +22,7 @@ function drawGrid() {
   var ctx = canvas.getContext('2d');
   ctx.lineWidth = 2;
   ctx.strokeStyle = lineColor;
+  ctx.beginPath();
   for (var x = 0; x <= width; x += 100) {
     ctx.moveTo(x, 0);
     ctx.lineTo(x, height);
@@ -29,6 +32,7 @@ function drawGrid() {
     ctx.lineTo(width, y);
   }
   ctx.stroke();
+  ctx.closePath();
 }
 
 function backingScale() {
@@ -54,4 +58,17 @@ function scaleCanvas() {
     this.canvas.style.width = realWidth + 'px';
     this.canvas.style.height = realHeight + 'px';
   }
+}
+
+function drawTileInLocation(x, y) {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.beginPath();
+  ctx.rect(x, y, 80, 80);
+  ctx.fillStyle = "#FF0000";
+  ctx.fill();
+  ctx.closePath();
+}
+
+function moveTileToLocation(x,y) {
+
 }
