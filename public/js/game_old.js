@@ -25,7 +25,7 @@ function redraw() {
 function drawGrid() {
   var ctx = canvas.getContext('2d');
   ctx.lineWidth = 2;
-  ctx.strokeStyle = lineColor;
+  ctx.strokeStyle = #835f17;
   ctx.beginPath();
   for (var x = 0; x <= width; x += 100) {
     ctx.moveTo(x, 0);
