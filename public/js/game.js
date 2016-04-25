@@ -6,9 +6,13 @@ var lineColor = '#835f17';
 var p1 = '#831717';
 var p2 = '#0e4f4f';
 
+var dx = 2;
+var dy = 2;
+
 function start() {
   redraw();
-  drawTileInLocation(10,10);
+  drawTileValueInLocation("1", x, y);
+  // setInterval(drawTileValueInLocation("4", x, y), 100);
 };
 
 function redraw() {
@@ -60,15 +64,34 @@ function scaleCanvas() {
   }
 }
 
-function drawTileInLocation(x, y) {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+function drawTileValueInLocation(value, x, y) {
+  // ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.beginPath();
   ctx.rect(x, y, 80, 80);
-  ctx.fillStyle = "#FF0000";
+  ctx.fillStyle = "#D96E6E";
   ctx.fill();
+
+  ctx.fillStyle = "#401357"; // font color to write the text with
+  var font = "42pt sans-serif";
+  ctx.font = font;
+  ctx.textBaseline = "top";
+  ctx.fillText(value, x+25, y+10);
   ctx.closePath();
+  x += dx;
+  console.log(x);
+  y += dy;
+  console.log(y);
 }
 
-function moveTileToLocation(x,y) {
+function moveTileToLocation(x, y) {
+  // this is animated
+  var moveToX = x;
+  var moveToY = y;
+
+  
+
+}
+
+function placeTileAtLocation(x, y) {
 
 }
