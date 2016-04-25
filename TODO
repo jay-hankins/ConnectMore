@@ -1,8 +1,31 @@
 # TODO
 
+So anyway
+
+What we need to do is 
+
 - create a piece class
+	- what variables for the tiles?
 	- drop them in without having them fall through
+		- so the bottom of the canvas is a blocking wall (the brick breaker tutorial shows how to do wall bouncing, should be similar)
+
 
 - create a player variable
 	- used to determine colors
 	- i.e. p1 is the color and identifier for drawing P1's pieces, checking if they have 4 in a row
+
+
+- create keyboard interaction
+	- or mouse? I don't know what the best way to "drop" is
+
+- set up mongo db 
+	- used to track players and high scores?
+		- how does scoring work?
+
+- decide on "max" level of game play
+	- I think 4 is appropriate
+		- e.g. [1|1|1|1] ==> [4] and then from that point on, you get [4] tiles dropped
+			- then connect [4|4|4|4]
+			- then you win
+			- but what is the score? how much time it takes you? idk
+s
