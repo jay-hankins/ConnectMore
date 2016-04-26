@@ -275,7 +275,7 @@ function Game() {
                 } else if (this.map[y][x] <= -1) {
                     fg_color = "#9975AB";
                 }
-                this.drawCircle(60 * x + 100, 74 * y + 50, fg_color);
+                this.drawCircle(x + 20, 74 * y + 150, fg_color);
             }
         }
     };
@@ -331,8 +331,8 @@ function Game() {
         //console.log("(" + x + ", " + y + ")");
         var j, valid;
         for (j = 0; j < 7; j++) {
-            if (this.onregion([x, y], 75 * j + 100, 25)) {
-                // console.log("clicked region " + j);
+            if (this.onregion([x, y], 75*j + 40, 25)) {
+                console.log("clicked region " + j);
                 this.paused = false;
                 valid = this.action(j, function () {
                     that.ai(-1);
