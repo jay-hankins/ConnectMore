@@ -117,6 +117,20 @@ function Game() {
         this.context.fillStyle = "#111";
         this.context.fillText(msg, 275, 15);
         this.context.restore();
+        var nameform = document.createElement('form');
+        nameform.setAttribute('method', 'post');
+        nameform.setAttribute('action', 'postScore');
+        var namebox = document.createElement('input');
+        namebox.setAttribute('type', 'text');
+        namebox.setAttribute('name', 'username');
+        namebox.setAttribute('value', 'Winner\'s name?')
+        var submitbutton = document.createElement('input');
+        submitbutton.setAttribute('type', 'submit');
+        submitbutton.setAttribute('value', 'Submit');
+        nameform.appendChild(namebox);
+        nameform.appendChild(submitbutton);
+        var content = document.getElementById('main-content');
+        content.appendChild(nameform);
 
         console.info(msg);
     };
