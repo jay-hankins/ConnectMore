@@ -292,8 +292,7 @@ function Game() {
         if (to_row * 100 >= cur_pos) {
             this.clear();
             this.draw();
-            this.drawCircle(100 * column + 20, cur_pos + 50, fg_color);
-            //this.drawCircle(100 * column + 20, 100 * to_row + 20, 25, fg_color, "black");
+            this.drawCircle(100 * column + 20, cur_pos + 0, fg_color);
             this.drawMask();
             window.requestAnimationFrame(function () {
                 that.animate(column, move, to_row, cur_pos + 25, callback);
