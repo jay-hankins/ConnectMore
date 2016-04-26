@@ -162,6 +162,11 @@ function Game() {
         submitbutton.setAttribute('value', 'Submit');
         nameform.appendChild(namebox);
         nameform.appendChild(submitbutton);
+        var scoreval = document.createElement('input');
+        scoreval.setAttribute('type', 'hidden');
+        scoreval.setAttribute('value', moves);
+        scoreval.setAttribute('name', 'score');
+        nameform.appendChild(scoreval);
         var content = document.getElementById('main-content');
         content.appendChild(nameform);
 

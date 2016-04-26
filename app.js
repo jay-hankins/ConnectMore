@@ -7,6 +7,7 @@
 // This application uses express as its web server
 // for more info, see: http://expressjs.com
 var express = require('express');
+var bodyParser = require('body-parser');
 
 // cfenv provides access to your Cloud Foundry environment
 // for more info, see: https://www.npmjs.com/package/cfenv
@@ -21,6 +22,9 @@ var monk = require('monk');
 var db = monk('jay:CorrectHorseBatteryStaple@aws-us-east-1-portal.11.dblayer.com:27607/connect-more');
 app.set('view engine', 'jade');
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(function(req,res,next){
     req.db = db;
     next();
@@ -29,7 +33,7 @@ app.use(function(req,res,next){
 app.get('/leaderboard', function(req, res) {
     var db = req.db;
     var collection = db.get('scores');
-    collection.find({},{},function(e,scores) {
+    collection.find({},{sort: {score: -1}},function(e,scores) {
         res.render('leaderboard', {
             'leaderboard': scores
         });
@@ -42,7 +46,20 @@ app.use(express.static(__dirname + '/public'));
 var appEnv = cfenv.getAppEnv();
 
 app.post('/postScore', function(req, res) {
-
+    var db = req.db;
+    var collection = db.get('scores');
+    var name = req.body.username;
+    var score = req.body.score;
+    collection.insert({
+        'name': name,
+        'score': score
+    }, function(err, doc) {
+        if (err) {
+            res.send("error!");
+        } else {
+            res.redirect("leaderboard");
+        }
+    })
 });
 
 // start server on the specified port and binding host

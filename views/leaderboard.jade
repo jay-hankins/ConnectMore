@@ -5,14 +5,20 @@ block title
 
 block content
     h1= "Leaderboard"
+    a(href='/') Home
+    br
+    br
     table(class='table table-striped')
         th
-            td #
-            td Name
-            td Score
+            td 
+                strong #
+            td 
+                strong Name
+            td 
+                strong Score
         each score, i in leaderboard
             tr
                 td
-                td #{i}
+                td #{i + 1}
                 td #{score.name}
                 td #{score.score}
