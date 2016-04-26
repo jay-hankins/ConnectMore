@@ -302,10 +302,14 @@ function Game() {
         }
     };
 
-    this.onregion = function (coord, x, radius) {
-        if ((coord[0] - x)*(coord[0] - x) <=  radius * radius) {
-            return true;
-        }
+    this.onregion = function (x) {
+        if (x < 100) { return 0;} 
+        else if (x < 200) {return 1;}
+        else if (x < 300) {return 2;}
+        else if (x < 400) {return 3;}
+        else if (x < 500) {return 4;}
+        else if (x < 600) {return 5;}
+        else if (x < 700) {return 6;}
         return false;
     };
     this.oncircle = function (coord, centerCoord, radius) {
@@ -329,9 +333,11 @@ function Game() {
             y = e.clientY - rect.top;// - e.target.scrollLeft;
 
         //console.log("(" + x + ", " + y + ")");
-        var j, valid;
+        var j, valid, check;
+        check = this.onregion(x);
+
         for (j = 0; j < 7; j++) {
-            if (this.onregion([x, y], 75*j + 40, 25)) {
+            if (j === check) {
                 console.log("clicked region " + j);
                 this.paused = false;
                 valid = this.action(j, function () {
