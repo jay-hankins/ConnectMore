@@ -33,6 +33,9 @@ function Game() {
      */
     this.initOnce = function () {
         if (this.initOnceDone) {
+        //     var forms = document.getElementsByTagName('form');
+        //     console.log(forms);
+        //     document.removeChild(forms);
             return false;
         }
 
@@ -60,6 +63,8 @@ function Game() {
                 this.map[i][j] = 0;
             }
         }
+
+
         this.clear();
         this.drawMask();
         this.print();
