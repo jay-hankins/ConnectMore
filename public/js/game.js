@@ -375,8 +375,203 @@ function Game() {
         }
     };
 
+     this.ai = function (aiMoveValue) {
+        //console.log(this.aiHistory);
+        var choice = null;
+
+        var state = this.map.clone();
+        //that.printState(state);
+        function checkState(state) {
+            /*if (typeof that.aiHistory[state] !== 'undefined') {
+                return that.aiHistory[state];
+            }*/
+
+            var winVal = 0;
+            var chainVal = 0;
+            var i, j, k;
+            var temp_r = 0, temp_b = 0, temp_br = 0, temp_tr = 0;
+            for (i = 0; i < 6; i++) {
+                for (j = 0; j < 7; j++) {
+                    temp_r = 0;
+                    temp_b = 0;
+                    temp_br = 0;
+                    temp_tr = 0;
+                    for (k = 0; k <= 3; k++) {
+                        //from (i,j) to right
+                        if (j + k < 7) {
+                            temp_r += state[i][j + k];
+                        }
+
+                        //from (i,j) to bottom
+                        if (i + k < 6) {
+                            temp_b += state[i + k][j];
+                        }
+
+                        //from (i,j) to bottom-right
+                        if (i + k < 6 && j + k < 7) {
+                            temp_br += state[i + k][j + k];
+                        }
+
+                        //from (i,j) to top-right
+                        if (i - k >= 0 && j + k < 7) {
+                            temp_tr += state[i - k][j + k];
+                        }
+                    }
+                    chainVal += temp_r * temp_r * temp_r;
+                    chainVal += temp_b * temp_b * temp_b;
+                    chainVal += temp_br * temp_br * temp_br;
+                    chainVal += temp_tr * temp_tr * temp_tr;
+
+                    if (Math.abs(temp_r) === 4) {
+                        winVal = temp_r;
+                    } else if (Math.abs(temp_b) === 4) {
+                        winVal = temp_b;
+                    } else if (Math.abs(temp_br) === 4) {
+                        winVal = temp_br;
+                    } else if (Math.abs(temp_tr) === 4) {
+                        winVal = temp_tr;
+                    }
+
+                }
+            }
+            //that.aiHistory[state] = [winVal, chainVal];
+            return [winVal, chainVal];
+        }
+        function value(state, depth, alpha, beta) {
+            var val = checkState(state);
+            if (depth >= 4) { // if slow (or memory consumption is high), lower the value
+                //that.printState(state);
+
+                // calculate value
+                var retValue = 0;
+
+                // if win, value = +inf
+                var winVal = val[0];
+                var chainVal = val[1] * aiMoveValue;
+                retValue = chainVal;
+
+                // If it lead to winning, then do it
+                if (winVal === 4 * aiMoveValue) { // AI win, AI wants to win of course
+                    retValue = 999999;
+                } else if (winVal === 4 * aiMoveValue * -1) { // AI lose, AI hates losing
+                    retValue = 999999 * -1;
+                }
+                retValue -= depth * depth;
+
+                return [retValue, -1];
+            }
+
+            var win = val[0];
+            // if already won, then return the value right away
+            if (win === 4 * aiMoveValue) { // AI win, AI wants to win of course
+                return [999999 - depth * depth, -1];
+            }
+            if (win === 4 * aiMoveValue * -1) { // AI lose, AI hates losing
+                return [999999 * -1 - depth * depth, -1];
+            }
+
+            if (depth % 2 === 0) {
+                return minState(state, depth + 1, alpha, beta);
+            }
+            return maxState(state, depth + 1, alpha, beta);
+
+        }
+        function choose(choice) {
+            return choice[Math.floor(Math.random() * choice.length)];
+        }
+        function maxState(state, depth, alpha, beta) {
+            var v = -100000000007;
+            var move = -1;
+            var tempVal = null;
+            var tempState = null;
+            var moveQueue = [];
+            var j;
+            for (j = 0; j < 7; j++) {
+                tempState = that.fillMap(state, j, aiMoveValue);
+                if (tempState !== -1) {
+
+                    tempVal = value(tempState, depth, alpha, beta);
+                    if (tempVal[0] > v) {
+                        v = tempVal[0];
+                        move = j;
+                        moveQueue = [];
+                        moveQueue.push(j);
+                    } else if (tempVal[0] === v) {
+                        moveQueue.push(j);
+                    }
+
+                    // alpha-beta pruning
+                    if (v > beta) {
+                        move = choose(moveQueue);
+                        return [v, move];
+                    }
+                    alpha = Math.max(alpha, v);
+                }
+            }
+            move = choose(moveQueue);
+
+            return [v, move];
+        }
+        function minState(state, depth, alpha, beta) {
+            var v = 100000000007;
+            var move = -1;
+            var tempVal = null;
+            var tempState = null;
+            var moveQueue = [];
+            var j;
+
+            for (j = 0; j < 7; j++) {
+                tempState = that.fillMap(state, j, aiMoveValue * -1);
+                if (tempState !== -1) {
+
+                    tempVal = value(tempState, depth, alpha, beta);
+                    if (tempVal[0] < v) {
+                        v = tempVal[0];
+                        move = j;
+                        moveQueue = [];
+                        moveQueue.push(j);
+                    } else if (tempVal[0] === v) {
+                        moveQueue.push(j);
+                    }
+
+                    // alpha-beta pruning
+                    if (v < alpha) {
+                        move = choose(moveQueue);
+                        return [v, move];
+                    }
+                    beta = Math.min(beta, v);
+                }
+            }
+            move = choose(moveQueue);
+
+            return [v, move];
+        }
+        var choice_val = maxState(state, 0, -100000000007, 100000000007);
+        choice = choice_val[1];
+        var val = choice_val[0];
+        console.info("AI " + aiMoveValue + " choose column: " + choice + " (value: " + val + ")");
+
+        this.paused = false;
+        var done = this.action(choice, function () {
+            that.rejectClick = false;
+            //that.ai(-aiMoveValue);
+        });
+
+        // if fail, then random
+        while (done < 0) {
+            console.error("Falling back to random agent");
+            choice = Math.floor(Math.random() * 7);
+            done = this.action(choice, function () {
+                that.rejectClick = false;
+            });
+        }
+
+    };
+
     this.init();
 }
+
+
 document.addEventListener('DOMContentLoaded', function () {
     this.game = new Game();
     //this.game.ai(1);
