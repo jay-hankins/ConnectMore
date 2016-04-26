@@ -102,10 +102,11 @@ function Game() {
         this.won = true;
         this.rejectClick = false;
         var msg = null;
+        var moves = Math.floor(this.move / 2) + 1;
         if (player > 0) {
-            msg = "Player 1 wins";
+            msg = "Player 1 wins in " + moves + " moves";
         } else if (player < 0) {
-            msg = "Player 2 wins";
+            msg = "Player 2 wins in " + moves + " moves";
         } else {
             msg = "It's a draw";
         }
