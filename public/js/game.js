@@ -33,9 +33,6 @@ function Game() {
      */
     this.initOnce = function () {
         if (this.initOnceDone) {
-        //     var forms = document.getElementsByTagName('form');
-        //     console.log(forms);
-        //     document.removeChild(forms);
             return false;
         }
 
@@ -48,6 +45,23 @@ function Game() {
     };
 
     this.init = function () {
+
+         var nameform = document.createElement('form');
+        nameform.setAttribute('method', 'post');
+        nameform.setAttribute('action', 'postScore');
+        var namebox = document.createElement('input');
+        namebox.setAttribute('type', 'text');
+        namebox.setAttribute('name', 'username');
+        namebox.setAttribute('value', 'Number of Players? (1 - 2)')
+        var submitbutton = document.createElement('input');
+        submitbutton.setAttribute('type', 'submit');
+        submitbutton.setAttribute('value', 'Submit');
+        nameform.appendChild(namebox);
+        nameform.appendChild(submitbutton);
+        var content = document.getElementById('main-content');
+        content.insertBefore(nameform, content.firstChild );
+
+
         this.map = [];
         this.paused = false;
         this.won = false;
@@ -63,8 +77,6 @@ function Game() {
                 this.map[i][j] = 0;
             }
         }
-
-
         this.clear();
         this.drawMask();
         this.print();
