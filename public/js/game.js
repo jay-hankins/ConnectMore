@@ -32,11 +32,12 @@ function Game() {
      * Only initalize once for these functions, can prevent race condition
      */
     this.initOnce = function () {
-        var forms = document.getElementsByTagName('form');
-        if (forms.length != 0) {
+        var forms = document.getElementById('nameForm');
+        if (forms != null) {
             console.log(forms);
-            forms[0].parentNode.removeChild(forms[0]);
+            forms.parentNode.removeChild(forms);
         }
+        
         if (this.initOnceDone) {
             return false;
         }
@@ -82,12 +83,7 @@ function Game() {
                 this.map[i][j] = 0;
             }
         }
-<<<<<<< HEAD
-=======
 
-        
-
->>>>>>> 06c154fbce177eb2204585d46a866763f90bb131
         this.clear();
         this.drawMask();
         this.print();
@@ -146,6 +142,7 @@ function Game() {
         this.context.fillText(msg, 275, 15);
         this.context.restore();
         var nameform = document.createElement('form');
+        nameform.setAttribute('id', 'nameForm')
         nameform.setAttribute('method', 'post');
         nameform.setAttribute('action', 'postScore');
         var namebox = document.createElement('input');
