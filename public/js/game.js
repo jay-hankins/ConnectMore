@@ -37,8 +37,15 @@ function Game() {
             console.log(forms);
             forms.parentNode.removeChild(forms);
         }
+
+       
         
         if (this.initOnceDone) {
+             var forms2 = document.getElementById('playersBox');
+        if (forms2 != null) {
+            console.log(forms2);
+            forms2.parentNode.removeChild(forms2);
+        }
             return false;
         }
 
@@ -52,20 +59,21 @@ function Game() {
 
     this.init = function () {
 
-         var nameform = document.createElement('form');
-        nameform.setAttribute('method', 'post');
-        nameform.setAttribute('action', 'postScore');
-        var namebox = document.createElement('input');
-        namebox.setAttribute('type', 'text');
-        namebox.setAttribute('name', 'username');
-        namebox.setAttribute('value', 'Number of Players? (1 - 2)')
+        var playersForm = document.createElement('form');
+        playersForm.setAttribute('id', 'playersBox');
+        playersForm.setAttribute('method', 'post');
+        playersForm.setAttribute('action', 'postScore');
+        var playersBox = document.createElement('input');
+        playersBox.setAttribute('type', 'text');
+        playersBox.setAttribute('name', 'username');
+        playersBox.setAttribute('value', 'Number of Players? (1 - 2)')
         var submitbutton = document.createElement('input');
         submitbutton.setAttribute('type', 'submit');
         submitbutton.setAttribute('value', 'Submit');
-        nameform.appendChild(namebox);
-        nameform.appendChild(submitbutton);
+        playersForm.appendChild(playersBox);
+        playersForm.appendChild(submitbutton);
         var content = document.getElementById('main-content');
-        content.insertBefore(nameform, content.firstChild );
+        content.insertBefore(playersForm, content.firstChild );
 
 
         this.map = [];
