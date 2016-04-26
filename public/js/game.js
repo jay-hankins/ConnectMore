@@ -111,9 +111,9 @@ function Game() {
         }
         msg += " - Click to reset";
         this.context.save();
-        this.context.font = '14pt sans-serif';
+        this.context.font = '10pt Arial';
         this.context.fillStyle = "#111";
-        this.context.fillText(msg, 200, 20);
+        this.context.fillText(msg, 275, 15);
         this.context.restore();
 
         console.info(msg);
