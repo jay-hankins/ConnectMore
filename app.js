@@ -8,6 +8,7 @@
 // for more info, see: http://expressjs.com
 var express = require('express');
 var bodyParser = require('body-parser');
+var jade = require('jade');
 
 // cfenv provides access to your Cloud Foundry environment
 // for more info, see: https://www.npmjs.com/package/cfenv
@@ -49,7 +50,7 @@ app.post('/postScore', function(req, res) {
     var db = req.db;
     var collection = db.get('scores');
     var name = req.body.username;
-    var score = req.body.score;
+    var score = parseInt(req.body.score);
     collection.insert({
         'name': name,
         'score': score
