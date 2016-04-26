@@ -34,7 +34,7 @@ app.use(function(req,res,next){
 app.get('/leaderboard', function(req, res) {
     var db = req.db;
     var collection = db.get('scores');
-    collection.find({},{sort: {score: -1}},function(e,scores) {
+    collection.find({},{sort: {score: 1}},function(e,scores) {
         res.render('leaderboard', {
             'leaderboard': scores
         });
