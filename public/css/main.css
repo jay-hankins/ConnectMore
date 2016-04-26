@@ -10,3 +10,9 @@ body {
 h1, p {
     color: #af3c3c;
 }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
