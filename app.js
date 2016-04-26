@@ -15,6 +15,11 @@ var cfenv = require('cfenv');
 // create a new express server
 var app = express();
 
+// New Code
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('aws-us-east-1-portal.11.dblayer.com:27607/connect-more');
+
 // serve the files out of ./public as our main files
 app.use(express.static(__dirname + '/public'));
 
