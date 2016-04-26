@@ -275,7 +275,7 @@ function Game() {
                 } else if (this.map[y][x] <= -1) {
                     fg_color = "#9975AB";
                 }
-                this.drawCircle(x + 20, 74 * y + 150, fg_color);
+                this.drawCircle(100 * x + 20, 74 * y + 150, fg_color);
             }
         }
     };
