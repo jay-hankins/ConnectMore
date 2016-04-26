@@ -10,7 +10,7 @@
 		"cfenv": "1.0.x",
 		"mongodb": "1.x",
 		"monk": "1.0.1",
-		"jade": "latest"
+		"pug": "latest"
 	},
 	"repository": {},
 	"engines": {
