@@ -1,6 +1,7 @@
 canvas {
     border: 1px solid #835f17;
     background-color: #ffe2a9;
+    margin-top: 20px;
 }
 
 body {
@@ -9,4 +10,10 @@ body {
 
 h1, p {
     color: #af3c3c;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }

@@ -102,18 +102,20 @@ function Game() {
         this.won = true;
         this.rejectClick = false;
         var msg = null;
+        var moves = Math.floor(this.move / 2);
         if (player > 0) {
-            msg = "Player 1 wins";
+            moves++;
+            msg = "Player 1 wins in " + moves + " moves";
         } else if (player < 0) {
-            msg = "Player 2 wins";
+            msg = "Player 2 wins in " + moves + " moves";
         } else {
             msg = "It's a draw";
         }
         msg += " - Click to reset";
         this.context.save();
-        this.context.font = '14pt sans-serif';
+        this.context.font = '10pt Arial';
         this.context.fillStyle = "#111";
-        this.context.fillText(msg, 200, 20);
+        this.context.fillText(msg, 275, 15);
         this.context.restore();
         var nameform = document.createElement('form');
         nameform.setAttribute('method', 'post');
@@ -306,8 +308,7 @@ function Game() {
         if (to_row * 100 >= cur_pos) {
             this.clear();
             this.draw();
-            this.drawCircle(100 * column + 20, cur_pos + 50, fg_color);
-            //this.drawCircle(100 * column + 20, 100 * to_row + 20, 25, fg_color, "black");
+            this.drawCircle(100 * column + 20, cur_pos + 0, fg_color);
             this.drawMask();
             window.requestAnimationFrame(function () {
                 that.animate(column, move, to_row, cur_pos + 25, callback);
