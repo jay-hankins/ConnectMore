@@ -4,6 +4,8 @@ var lineColor = '#835f17';
 var p1 = '#831717';
 var p2 = '#0e4f4f';
 
+var radios = document.getElementsByName('numPlayers');
+
 /*jslint browser:true, plusplus:true, vars: true */
 "use strict";
 
@@ -41,11 +43,11 @@ function Game() {
        
         
         if (this.initOnceDone) {
-             var forms2 = document.getElementById('playersBox');
-        if (forms2 != null) {
-            console.log(forms2);
-            forms2.parentNode.removeChild(forms2);
-        }
+            // var forms2 = document.getElementById('playersBox');
+            // if (forms2 != null) {
+            //     console.log(forms2);
+            //     forms2.parentNode.removeChild(forms2);
+            // }
             return false;
         }
 
@@ -58,24 +60,6 @@ function Game() {
     };
 
     this.init = function () {
-
-        var playersForm = document.createElement('form');
-        playersForm.setAttribute('id', 'playersBox');
-        playersForm.setAttribute('method', 'post');
-        playersForm.setAttribute('action', 'postScore');
-        var playersBox = document.createElement('input');
-        playersBox.setAttribute('type', 'text');
-        playersBox.setAttribute('name', 'username');
-        playersBox.setAttribute('value', 'Number of Players? (1 - 2)')
-        var submitbutton = document.createElement('input');
-        submitbutton.setAttribute('type', 'submit');
-        submitbutton.setAttribute('value', 'Submit');
-        playersForm.appendChild(playersBox);
-        playersForm.appendChild(submitbutton);
-        var content = document.getElementById('main-content');
-        content.insertBefore(playersForm, content.firstChild );
-
-
         this.map = [];
         this.paused = false;
         this.won = false;
@@ -147,7 +131,7 @@ function Game() {
         this.context.save();
         this.context.font = '10pt Arial';
         this.context.fillStyle = "#111";
-        this.context.fillText(msg, 275, 15);
+        this.context.fillText(msg, 250, 15);
         this.context.restore();
         var nameform = document.createElement('form');
         nameform.setAttribute('id', 'nameForm')
@@ -395,10 +379,16 @@ function Game() {
                 console.log("clicked region " + j);
                 this.paused = false;
                 valid = this.action(j, function () {
-                    that.ai(-1);
+                    if (radios[0].checked) {
+                        that.ai(-1);
+                    }
+                    
                 });
                 if (valid === 1) { // give user retry if action is invalid
-                    // this.rejectClick = true;
+                    if (radios[0].checked) {
+                        this.rejectClick = true;
+                    }
+                    // 
                 }
                 break; //because there will be no 2 points that are clicked at a time
             }
@@ -584,7 +574,7 @@ function Game() {
         this.paused = false;
         var done = this.action(choice, function () {
             that.rejectClick = false;
-            //that.ai(-aiMoveValue);
+            // that.ai(-aiMoveValue);
         });
 
         // if fail, then random
@@ -604,5 +594,5 @@ function Game() {
 
 document.addEventListener('DOMContentLoaded', function () {
     this.game = new Game();
-    //this.game.ai(1);
+    // this.game.ai(1);
 });
