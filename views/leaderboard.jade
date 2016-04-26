@@ -1,0 +1,18 @@
+extends layout
+
+block title
+    title= "Leaderboard"
+
+block content
+    h1= "Leaderboard"
+    table(class='table table-striped')
+        th
+            td #
+            td Name
+            td Score
+        each score, i in leaderboard
+            tr
+                td
+                td #{i}
+                td #{score.name}
+                td #{score.score}

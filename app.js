@@ -18,7 +18,7 @@ var app = express();
 // New Code
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('aws-us-east-1-portal.11.dblayer.com:27607/connect-more');
+var db = monk('jay:CorrectHorseBatteryStaple@aws-us-east-1-portal.11.dblayer.com:27607/connect-more');
 app.set('view engine', 'jade');
 
 app.use(function(req,res,next){
@@ -30,7 +30,9 @@ app.get('/leaderboard', function(req, res) {
     var db = req.db;
     var collection = db.get('scores');
     collection.find({},{},function(e,scores) {
-        res.render('index');
+        res.render('leaderboard', {
+            'leaderboard': scores
+        });
     })
 });
 // serve the files out of ./public as our main files
